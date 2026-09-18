@@ -1,0 +1,5 @@
+# Manual function boundaries and overrides for Army of Two: The 40th Day (454108D8)
+# ReXGlue codegen phase discover & gapfill
+
+[functions]
+# Boundaries to be populated during initial codegen scan of default.xex (454108D8)

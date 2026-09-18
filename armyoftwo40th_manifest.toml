@@ -1,0 +1,12 @@
+# Generated for Army of Two: The 40th Day PC Recompilation
+# ReXGlue SDK v0.10.0+
+
+[project]
+name = "armyoftwo40threcomp"
+sdk_version = "0.10.0"
+game_root = "assets"
+
+[entrypoint]
+file_path = "assets/default.xex"
+out_directory_path = "generated/default"
+includes = ["default_functions.toml"]
