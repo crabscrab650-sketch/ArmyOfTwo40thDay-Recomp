@@ -1,30 +1,22 @@
-# armyoftworecomp - hardware / rendering settings
-#
-# Loaded automatically at startup (see OnConfigurePaths in
-# src/armyoftworecomp_app.h) and rewritten by the in-game Settings
-# overlay's "Save to config" button. --flag on the command line and REX_*
-# environment variables always override values from this file - see
-# ../settings/README.md.
-#
-# Flat key = value only
+# armyoftwo40threcomp - hardware / rendering settings
+# Perfect Lighting Fix: ROV (Rasterizer-Ordered Views) + Readback Resolve
 
 gpu_plugin = "xenos"
-
-# "any" (d3d12 - win default, vulkan - lin default)
-# "d3d12" / "vulkan"
 graphics_backend = "any"
 vsync = false
-resolution_scale = 2
+
+# Internal render scale (1 = native 720p without broken bloom / blinding light)
+resolution_scale = 1
 async_shader_compilation = true
 native_2x_msaa = false
-anisotropic_override = 3
+anisotropic_override = 1
 
 texture_cache_memory_limit_soft = 1024
 texture_cache_memory_limit_hard = 4096
 clear_memory_page_state = true
 readback_memexport = true
 readback_memexport_fast = true
-host_present_from_non_ui_thread	= true
+host_present_from_non_ui_thread = true
 
 window_width = 1920
 window_height = 1080
@@ -32,10 +24,14 @@ fullscreen = true
 monitor = 0
 resolution = "1920x1080"
 
-render_target_path_d3d12 = "rtv"
+# ROV fixes eDRAM blending, HDR tonemapping, lighting, and modular weapon attachments
+render_target_path_d3d12 = "rov"
+d3d12_readback_resolve = true
+gamma_render_target_as_unorm16 = true
+
 store_shaders = true
 present_letterbox = true
-  
+
 d3d12_adapter = -1
 d3d12_allow_variable_refresh_rate_and_tearing = true
 d3d12_bindless = true
@@ -56,26 +52,15 @@ vulkan_allow_present_mode_fifo_relaxed = false
 vulkan_allow_present_mode_mailbox = false
 
 headless = false
-
-# trace, debug, info, warn, error
 log_level = "info"
-
 gpu_allow_invalid_fetch_constants = true
-
-# Perf CSV log path (per-frame metrics). Empty = disabled.
-# Only works when REXGLUE_ENABLE_PERF_COUNTERS is defined (non-Release).
-#perf_log_csv = "benchmark.csv"
-
-# Enable runtime debug tools (stub sweep, missing function scan).
-# Produces logs/missed_functions.txt and logs/stub_sweep.txt.
 dev_debug_runtime = false
 
-# Ported from xenia-canary game-patches for Army of Two (4541084C)
-# https://github.com/xenia-canary/game-patches/blob/main/patches/4541084C%20-%20Army%20of%20Two%20(Europe).patch.toml
-# "Unlock FPS": game speed is tied to FPS, kicks in above ~90FPS.
+# Authentic Console Settings:
+# Framerate lock: 30 FPS (ao2_fps_unlock = false, mode = 2)
 ao2_fps_unlock = false
-# 0=unlimited, 1=60FPS, 2=30FPS. Only applies when ao2_fps_unlock is true.
 ao2_fps_unlock_mode = 2
-# "Black Shading Fix": disables MSAA.
+
+# Black Shading Fix: disables MSAA
 ao2_disable_msaa = true
 ao2_anisotropic_16x = false
